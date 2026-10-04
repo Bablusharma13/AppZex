@@ -1,0 +1,26 @@
+# =============================
+# AppZex AgencyOS - root workspace
+# =============================
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+!.env.example
+backend/storage/
+storage/
+logs/
+*.log
+# Local MongoDB data directory used during development
+.mongo-data/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+next-env.d.ts
