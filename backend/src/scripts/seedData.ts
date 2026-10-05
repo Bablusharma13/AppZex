@@ -86,7 +86,12 @@ interface ProjectSpec {
 }
 
 export async function seedPlatform(refs: SeedRefs): Promise<Types.ObjectId> {
-  const passwordHash = await hashPassword(DEMO_PASSWORD);
+  // The Super Admin is the one account that does NOT get the shared demo
+  // password: honour SUPER_ADMIN_PASSWORD when it is supplied, so a real
+  // deployment can seed its platform operator without ever shipping a
+  // well-known credential. Falls back to the demo password for local use.
+  const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || DEMO_PASSWORD;
+  const passwordHash = await hashPassword(superAdminPassword);
 
   const superAdmin = await User.create({
     name: 'AppZex Platform Admin',
