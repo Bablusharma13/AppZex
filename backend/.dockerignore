@@ -1,0 +1,16 @@
+# Keep the build context minimal: the Dockerfile deliberately installs from
+# `backend/package.json` in isolation, so the workspace root must not leak in.
+node_modules
+dist
+coverage
+storage
+logs
+tests
+*.log
+.env
+.env.*
+!.env.example
+jest.config.js
+.eslintrc.js
+Dockerfile
+.dockerignore

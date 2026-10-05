@@ -1,0 +1,53 @@
+# Render blueprint for the AppZex AgencyOS API.
+#
+# Deploy as a Blueprint: New > Blueprint > select this repository.
+# Render reads this file and creates the service plus its env vars.
+#
+# The values below are placeholders. Set the real secrets in the Render
+# dashboard (they are intentionally NOT stored here).
+
+services:
+  - type: web
+    name: appzex-agencyos-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: singapore
+
+    # Render injects PORT automatically; the Dockerfile defaults to 5000.
+    healthCheckPath: /api/health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: LOG_LEVEL
+        value: info
+
+      # --- Secrets: set these in the dashboard, never in this file ---
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true # Render generates a strong random secret
+      - key: CLIENT_URL
+        sync: false # the Vercel frontend origin, e.g. https://appzex.vercel.app
+
+      # --- Optional: leave AI_API_KEY unset to disable the AI workflow ---
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_BASE_URL
+        value: https://api.openai.com/v1
+      - key: AI_MODEL
+        value: gpt-4o-mini
+
+      - key: STORAGE_DIR
+        value: /app/storage
+      - key: MAX_UPLOAD_SIZE_MB
+        value: 15
+
+      # Seed-only: used by `npm run seed` to create the first Super Admin.
+      - key: SUPER_ADMIN_EMAIL
+        sync: false
+      - key: SUPER_ADMIN_PASSWORD
+        sync: false

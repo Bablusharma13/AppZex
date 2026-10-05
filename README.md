@@ -392,6 +392,9 @@ was caught).
 
 ## 17. Deployment
 
+> **Full step-by-step walkthrough: see [`DEPLOYMENT.md`](./DEPLOYMENT.md)** — MongoDB Atlas,
+> Render (API), Vercel (frontend), seeding and verification.
+
 **Backend** — build and run anywhere Node 20+ is available:
 
 ```bash
